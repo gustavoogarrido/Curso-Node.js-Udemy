@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página principal</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="title">
+        Seja bem-vindo
+    </div>
+    <h3 id="result"></h3>
+    <form action="/users/validation" method="post">
+        <div class="inputs">
+            <input type="text" name="user" placeholder="Insira seu usuário">
+            <input type="text" name="password" placeholder="Insira sua senha">
+            <p><input type="submit" value="Enviar"></p>
+        </div>
+    </form>
+    <a href="/users/register" style="text-align: center;">Criar conta</a>
+</body>
+
+</html>
