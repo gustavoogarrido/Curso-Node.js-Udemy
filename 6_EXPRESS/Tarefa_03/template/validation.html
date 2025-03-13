@@ -13,14 +13,17 @@
         Seja bem-vindo
     </div>
     <h3 id="result"></h3>
-    <form action="/users/validation" method="post">
+    <form action="/users/validation" method="post" class="container">
         <div class="inputs">
             <input type="text" name="user" placeholder="Insira seu usuário">
             <input type="text" name="password" placeholder="Insira sua senha">
             <p><input type="submit" value="Enviar"></p>
         </div>
     </form>
-    <a href="/users/register" style="text-align: center;">Criar conta</a>
+    <div class="container">
+        <a href="/users/register">Criar conta</a>
+        <a href="/users/forgotpassw" style="padding-left: 300px;">Esqueceu a senha?</a>
+    </div>
 </body>
 
 </html>

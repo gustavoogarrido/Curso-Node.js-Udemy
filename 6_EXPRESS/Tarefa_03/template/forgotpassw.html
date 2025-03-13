@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu a senha?</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="title">Recuperação de senha</div>
+    <h3 class="title" id="warning"></h3>
+    <form action="/users/forgotpassw" method="post" class="container">
+        <div class="inputs">
+            <input type="text" name="user" placeholder="Digite o usuário">
+            <input type="text" name="npassw" placeholder="Digite a nova senha">
+            <input type="text" name="confirmpassw" placeholder="Digite a nova senha novamente">
+            <p><input type="submit" value="Enviar"></p>
+        </div>
+    </form>
+    <a href="/users/validation" style="margin-left: 500px;">Voltar</a>
+</body>
+</html>

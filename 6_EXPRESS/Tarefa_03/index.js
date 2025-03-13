@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const path = require('path')
-const users = require('./users/index.js')
+const users = require('./users')
 
 app.set('view engine', 'ejs')
 

@@ -9,16 +9,20 @@
 </head>
 
 <body>
-    <form action="/users/create" method="post">
+    <div class="title">Registrar</div>
+    <h3 class="title" id="warning"></h3>
+    <form action="/users/register" method="post" class="container">
         <div class="inputs">
-            <input type="text" name="name" placeholder="Digite seu nome">
-            <input type="text" name="lastname" placeholder="Digite seu sobrenome">
-            <input type="text" name="age" placeholder="Digite sua idade">
-            <input type="text" name="password" placeholder="Digite sua senha">
-            <input type="text" name="confirmpassword" placeholder="Digite novamente sua senha">
+            <input type="text" name="name" placeholder="Digite seu nome" style="margin-bottom: 10px;">
+            <input type="text" name="lastname" placeholder="Digite seu sobrenome" style="margin-bottom: 10px;">
+            <input type="text" name="age" placeholder="Digite sua idade" style="margin-bottom: 10px;">
+            <input type="text" name="passw" placeholder="Digite sua senha" style="margin-bottom: 10px;">
+            <input type="text" name="confirmpassw" placeholder="Digite novamente sua senha" style="margin-bottom: 30px;">
             <input type="submit" value="Registrar">
         </div>
     </form>
+    <br>
+    <a class="container" style="margin-left: 200px;" href="validation">Voltar para o login</a>
 </body>
 
 </html>
