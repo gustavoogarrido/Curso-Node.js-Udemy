@@ -13,14 +13,14 @@ router.post('/getid', (req, res) => {
 router.post('/validation', (req, res) => {
     const user = req.body.user
     const passw = req.body.password
-    const accountData = getAccount(user)
     let loginPage = fs.readFileSync(`${basePath}/validation.html`, 'utf-8')
-
+    
     if (!fs.existsSync("accounts")) {
         fs.mkdirSync("accounts")
     }
-
+    
     if (fs.existsSync(`accounts/${user}.json`)) {
+        const accountData = getAccount(user)
         if (accountData.passw == passw)
             res.redirect(`./dashboard`)
         else{
