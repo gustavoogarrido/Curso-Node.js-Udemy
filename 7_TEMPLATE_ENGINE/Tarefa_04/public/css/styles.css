@@ -1,0 +1,17 @@
+nav{
+    text-align: center;
+    color: blueviolet;
+    font-size: 30px;
+}
+
+footer{
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+.account-form{
+    display: block;
+    flex-direction: column;
+    width: 20%;
+    text-align: center;
+}
