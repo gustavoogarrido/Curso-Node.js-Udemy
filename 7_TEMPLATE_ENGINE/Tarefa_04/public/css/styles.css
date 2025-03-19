@@ -5,13 +5,27 @@ nav{
 }
 
 footer{
-    margin-bottom: 100px;
+    margin-top: 20%;
     text-align: center;
 }
 
+.title{
+    color: blue;
+    text-align: center;
+    margin-top: 5%;
+}
+
 .account-form{
-    display: block;
+    margin-right: 42%;
+    margin-left: 40%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    display: flex;
     flex-direction: column;
-    width: 20%;
+    text-align: center;
+    
+}
+
+.buttons{
     text-align: center;
 }
