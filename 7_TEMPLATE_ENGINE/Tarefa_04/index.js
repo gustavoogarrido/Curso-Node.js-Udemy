@@ -1,10 +1,21 @@
 const fs = require('fs')
 const express = require('express')
 const handlebars = require('express-handlebars')
-const { register } = require('module')
+const router = express.Router()
+const path = require('path')
+const basePath = path.join(__dirname, '/views')
 const app = express()
 const port = 3000
 let user
+
+app.use(express.json())
+app.use(express.static('public'))
+
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+)
 
 const hbs = handlebars.create({
     partialsDir: ['views/partials']
@@ -15,43 +26,63 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 app.post('/register', (req, res) => {
-    username = req.body.name
-    usersurname = req.body.surname
-    userpassword = req.body.password
-    userpasswordconf = req.body.confirmpassword
-    registerPage = fs.readFileSync('/views/register.html')
+    const username = req.body.username
+    const usersurname = req.body.surname
+    const userpassword = req.body.password
+    const userpasswordconf = req.body.confirmpassword
+    let success = false
+    let failurepassw = false
+    let failureacc = false
+    let registerPage = fs.readFileSync(`${basePath}/register.handlebars`, 'utf-8')
 
-    if(verifyAccount && username.length > 0){
+    if(verifyAccount(username)){
         if(userpassword == userpasswordconf){
-            //criar json da conta
-            let accountData = {
-                name: username,
-                usersurname: usersurname,
-                userpassword: userpassword
-            }
-            createAccount(accountData)
-            registerPage.replace('<h3 id="warning"></h3>', '<h3 id="warning" Style="text-align: center; color: green;">Seu registro foi efetuado com sucesso</h3>')
+            createAccount(username, usersurname, userpassword)
+            success = true
         }
         else{
-            registerPage.replace('<h3 id="warning"></h3>', '<h3 id="warning" Style="text-align: center; color: red;">As senhas não são iguais</h3>')
+            failurepassw = true
         }
     }
     else{
-        registerPage.replace('<h3 id="warning"></h3>', '<h3 id="warning" Style="text-align: center; color: red;">Ocorreu um erro ao criar a conta</h3>')
+        failureacc = true
     }
+    res.render('register', {success, failurepassw, failureacc})
 
 })
 
+app.post('/login',  (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    let failure = false
+
+    if(!verifyAccount(username)){
+        user = username
+        userAccount = getAccount(username)
+        if(userAccount.password == password){
+            res.redirect(`/${user}`)
+        }
+        else{
+            failure = true
+            res.render('login', {failure})
+        }
+    }
+    else{
+        failure = true
+        res.render('login', {failure})
+    }
+})
+
 app.get('/login', (req, res) => {
-    username = req.body.name
-    password = req.body.password
-
-
     res.render('login')
 })
 
 app.get('/register', (req, res) => {
     res.render('register')
+})
+
+app.get(`/${user}`, (req, res) => {
+    res.render('dashboard')
 })
 
 app.get('/', (req, res) => {
@@ -70,22 +101,24 @@ function verifyAccount(accountName){
     if(!fs.existsSync('accounts')){
         fs.mkdirSync('accounts')
     }
-    if(fs.existsSync(`/accounts/${accountName}`)){
-        return false
+    if(!fs.existsSync(`./accounts/${accountName}.json`)){
+        return true
     }
     else{
-        return true
+        return false
     }
 }
 
 function getAccount(accountName) {
-    const accountJSON = fs.readFileSync(`accounts/${accountName}.json`, {
+    const accountJSON = fs.readFileSync(`./accounts/${accountName}.json`, {
         encoding: "utf8",
         flag: "r"
     })
     return JSON.parse(accountJSON)
 }
 
-function createAccount(accountData){
-    fs.writeFileSync(`accounts/${accountData.name}.json`, `{\n"surname": "${accountData.surname}",\n "password": "${accountData.password}"}`)
+function createAccount(name, surname, password){
+    fs.writeFileSync(`./accounts/${name}.json`, `{\n"surname": "${surname}",\n "password": "${password}"}`, function(err){
+        console.log(err)
+    })
 }

@@ -1,14 +1,20 @@
 <div class="title">
-    <h2>Faça já a sua conta</h2>
+    <h2>Login</h2>
 </div>
-<ul>
-    <form action="/login" method="post">
-        <div class="account-form">
-            <input type="text" id="name" placeholder="Digite o seu nome">
-            <input type="text" id="password" placeholder="Digite a sua senha">
+
+{{#if failure}}
+    <h3 style="color: red; text-align: center;">Login inválido</h3>
+{{/if}}
+
+<form action="/login" method="post">
+    <div class="account-form">
+        <input type="text" name="username" placeholder="Digite o seu nome">
+        <input type="text" name="password" placeholder="Digite a sua senha">
+    </div>
+        <div class="buttons">
+            <input type="submit" value="Confirmar">
         </div>
-            <div class="buttons">
-                <input type="submit" value="Confirmar">
-            </div>
-    </form>
-</ul>
+</form>
+<p>
+    <a href="/" style="display: block; text-align: center;">Voltar</a>
+</p>

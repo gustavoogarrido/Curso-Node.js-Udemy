@@ -1,17 +1,26 @@
 <div class="title">
     <h2>Faça já a sua conta</h2>
 </div>
-    <h3 id="warning"></h3>
-<ul>
-    <form action="/register" method="post">
-        <div class="account-form">
-            <input type="text" id="name" placeholder="Digite o seu nome">
-            <input type="text" id="surname" placeholder="Digite o seu sobrenome">
-            <input type="text" id="password" placeholder="Digite a sua senha">
-            <input type="text" id="confirmpassword" placeholder="Confirme a sua senha">
-        </div>
-            <div class="buttons">
-                <input type="submit" value="Confirmar">
-            </div>
-    </form>
-</ul>
+{{#if success}}
+    <h3 style="text-align: center; color: rgb(2, 199, 2)">Conta criada com sucesso</h3>
+{{/if}} 
+{{#if failurepassw}}
+    <h3 style="text-align: center; color: red">As senhas não são iguais</h3>
+{{/if}}
+{{#if failureacc}}
+    <h3 style="text-align: center; color: red">Esse nome de usuário já está em uso</h3>
+{{/if}}
+<form action="/register" method="post">
+    <div class="account-form">
+        <input type="text" name="username" placeholder="Digite o seu nome">
+        <input type="text" name="surname" placeholder="Digite o seu sobrenome">
+        <input type="text" name="password" placeholder="Digite a sua senha">
+        <input type="text" name="confirmpassword" placeholder="Confirme a sua senha">
+    </div>
+    <div class="buttons">
+    <input type="submit" value="Confirmar">
+    </div>
+</form>
+<p>
+    <a href="/" style="display: block; text-align: center;">Voltar</a>
+</p>
