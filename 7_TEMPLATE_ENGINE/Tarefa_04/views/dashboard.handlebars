@@ -1,1 +1,16 @@
-asdasdsadsa
+{{#if auths}}
+    <div style="text-align: left; margin-left: 43%; margin-top: 5%; font-size: larger;">
+        <lu>
+            <li>Nome de usuário: {{authUser.name}}</li>
+            <li>Sobrenome: {{authUser.surname}}</li>
+            <li>Senha: *******</li>
+            <br>
+            <a href="/{{authUser.name}}/changeInfo">Alterar informações?</a>
+        </lu>
+    </div>
+{{else}}
+    <div class="title">
+        Você não está autenticado
+    </div>
+    <a href="/" style="margin-top: 20%; margin-left: 49%">Voltar</a>
+{{/if}}

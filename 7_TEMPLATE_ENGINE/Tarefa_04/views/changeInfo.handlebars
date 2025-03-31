@@ -1,0 +1,17 @@
+{{#if auth}}
+    <form action="/changeInfo" method="post">
+        <div style="text-align: left; margin-left: 40%; margin-top: 5%; font-size: larger;">
+                <lu>
+                    <li>Nome de usuário: <input type="text" name="newName" placeholder="{{authUser.name}}"></li>
+                    <li>Sobrenome: <input type="text" name="newSurname" placeholder="{{authUser.surname}}"></li>
+                    <li>Senha antiga: <input type="text" name="oldPassword"></li>
+                    <li>Senha nova: <input type="text" name="newPassword"></li>
+                    <br>
+                </lu>
+        </div>
+        <input type="submit" value="Confirmar" style="margin-left: 47%">
+    </form>
+{{else}}
+    Você não está autenticado
+    <a href="/">Voltar</a>
+{{/if}}

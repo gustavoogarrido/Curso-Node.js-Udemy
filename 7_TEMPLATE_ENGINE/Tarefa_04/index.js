@@ -6,7 +6,7 @@ const path = require('path')
 const basePath = path.join(__dirname, '/views')
 const app = express()
 const port = 3000
-let user
+auth = fs.readFileSync('./auth/auth', "utf-8")
 
 app.use(express.json())
 app.use(express.static('public'))
@@ -18,7 +18,7 @@ app.use(
 )
 
 const hbs = handlebars.create({
-    partialsDir: ['views/partials']
+    partialsDir: ['views/partials'],
 })
 
 app.engine('handlebars', handlebars.engine())
@@ -57,10 +57,10 @@ app.post('/login',  (req, res) => {
     let failure = false
 
     if(!verifyAccount(username)){
-        user = username
         userAccount = getAccount(username)
         if(userAccount.password == password){
-            res.redirect(`/${user}`)
+            authenticated()
+            res.redirect(`/${username}/dashboard`)
         }
         else{
             failure = true
@@ -73,6 +73,14 @@ app.post('/login',  (req, res) => {
     }
 })
 
+app.post('/:id/changeInfo', (req, res) => {
+    newUser = req.body.name
+    newSurname = req.body.surname
+    oldPassword = req.body.oldPassword
+    newPassword = req.body.newPassword
+
+})
+
 app.get('/login', (req, res) => {
     res.render('login')
 })
@@ -81,12 +89,21 @@ app.get('/register', (req, res) => {
     res.render('register')
 })
 
-app.get(`/${user}`, (req, res) => {
-    res.render('dashboard')
+app.get(`/:id/dashboard`, (req, res) => {
+    auths = auth
+    console.log(auths)
+    authUser = getAccount(req.params.id)
+    res.render('dashboard', {auths, authUser})
+})
+
+app.get('/:id/changeInfo', (req, res) => {
+    authUser = getAccount(req.params.id)
+    res.render('changeInfo', {authUser})
 })
 
 app.get('/', (req, res) => {
-    res.render('home')
+    unauthenticated()
+    res.render('home', {auth: auth.auth})
 })
 
 app.use(function(req, res, next){
@@ -118,7 +135,15 @@ function getAccount(accountName) {
 }
 
 function createAccount(name, surname, password){
-    fs.writeFileSync(`./accounts/${name}.json`, `{\n"surname": "${surname}",\n "password": "${password}"}`, function(err){
+    fs.writeFileSync(`./accounts/${name}.json`, `{\n"name": "${name}",\n"surname": "${surname}",\n"password": "${password}"\n}`, function(err){
         console.log(err)
     })
+}
+
+function authenticated(){
+    fs.writeFileSync(`./auth/auth`, "true")
+}
+
+function unauthenticated(){
+    fs.writeFileSync(`./auth/auth`, "false")
 }
